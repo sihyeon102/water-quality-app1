@@ -32,15 +32,9 @@ def get_water_quality_status(value, type):
             return '매우 나쁨 (V등급)', 'darkred'
     return '알 수 없음', 'gray'
 
-# 한강, 공촌천, 장수천 관측소별 위도/경도 데이터
+# 공촌천, 장수천 관측소별 위도/경도 데이터
 # 'river_coords' 딕셔너리에 각 강별 좌표 데이터를 저장합니다.
-# 실제 좌표를 찾으시면 이 값을 수정해주세요.
 river_coords = {
-    '한강': pd.DataFrame({
-        'lat': [37.5665, 37.5326, 37.5147],
-        'lon': [126.9780, 126.9900, 127.0500],
-        'name': ['한강대교', '잠실', '뚝섬']
-    }),
     '공촌천': pd.DataFrame({
         'lat': [37.5255], 
         'lon': [126.6575],
@@ -53,11 +47,15 @@ river_coords = {
     })
 }
 
+# GitHub Raw 데이터 URL
+data_url = 'https://raw.githubusercontent.com/sihyeon102/water-quality-app1/main/%EB%8F%84%EC%8B%9C%EC%9D%98_%EC%88%98%EC%A7%88%ED%98%84%ED%99%A9_20250906112341.csv'
 
 # 파일 업로드 (개발 환경에서는 로컬 파일을 사용)
-
-df = pd.read_csv('도시의_수질현황_20250906112341.csv', encoding='cp949')
-
+try:
+    df = pd.read_csv(data_url, encoding='cp949')
+except Exception as e:
+    st.error(f"데이터 파일을 불러오는 중 오류가 발생했습니다: {e}")
+    st.stop()
 
 
 # 데이터 전처리
@@ -138,4 +136,3 @@ st.sidebar.markdown(f"<div style='color:{bod_color}; font-size:1.2em;'>**BOD 상
 
 st.sidebar.metric(label="COD (mg/L)", value=f"{latest_cod:.2f}", delta_color="off")
 st.sidebar.markdown(f"<div style='color:{cod_color}; font-size:1.2em;'>**COD 상태:** {cod_status}</div>", unsafe_allow_html=True)
-
