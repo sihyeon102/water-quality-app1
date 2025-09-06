@@ -11,13 +11,11 @@ st.markdown("---")
 river_coords = {
     '공촌천': pd.DataFrame({
         'lat': [37.5255], 
-        'lon': [126.6575],
-        'name': ['공촌천'] 
+        'lon': [126.6575]
     }),
     '장수천': pd.DataFrame({
         'lat': [37.4529], 
-        'lon': [126.7025],
-        'name': ['장수천']
+        'lon': [126.7025]
     })
 }
 
