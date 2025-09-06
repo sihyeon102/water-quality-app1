@@ -55,17 +55,9 @@ river_coords = {
 
 
 # 파일 업로드 (개발 환경에서는 로컬 파일을 사용)
-try:
-    df = pd.read_csv('도시의_수질현황_20250906112341.csv', encoding='cp949')
-except FileNotFoundError:
-    st.error("데이터 파일 (도시의_수질현황_20250906112341.csv)을 찾을 수 없습니다. 파일을 업로드하거나 경로를 확인해주세요.")
-    st.stop()
-except UnicodeDecodeError:
-    try:
-        df = pd.read_csv('도시의_수질현황_20250906112341.csv', encoding='utf-8')
-    except UnicodeDecodeError:
-        st.error("파일 인코딩 오류가 발생했습니다. 'cp949' 또는 'utf-8' 인코딩으로 파일을 다시 확인해주세요.")
-    st.stop()
+
+df = pd.read_csv('도시의_수질현황_20250906112341.csv', encoding='cp949')
+
 
 
 # 데이터 전처리
@@ -146,3 +138,4 @@ st.sidebar.markdown(f"<div style='color:{bod_color}; font-size:1.2em;'>**BOD 상
 
 st.sidebar.metric(label="COD (mg/L)", value=f"{latest_cod:.2f}", delta_color="off")
 st.sidebar.markdown(f"<div style='color:{cod_color}; font-size:1.2em;'>**COD 상태:** {cod_status}</div>", unsafe_allow_html=True)
+
